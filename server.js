@@ -214,14 +214,15 @@ const sendEmail = async (data) => {
     }
 };
 
+
 app.get('/stock/:symbol', async (req, res) => {
     const symbol = req.params.symbol;
     try {
         const response = await axios.get(`https://www.alphavantage.co/query`, {
             params: {
-                function: 'GLOBAL_QUOTE',
+                function: 'TIME_SERIES_INTRADAY',
                 symbol: symbol,
-                // interval: '1min',
+                interval: '1min',
                 apikey: API_KEY
             }
         });
@@ -259,7 +260,7 @@ app.get('/stock/:symbol', async (req, res) => {
     }
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
